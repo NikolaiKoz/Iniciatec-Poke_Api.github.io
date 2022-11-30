@@ -65,7 +65,7 @@ body{
     height: 200px;
     border-radius: 50% ;
     margin: 0 auto;
-    background-color: rebeccapurple;
+    background-color: white;
     overflow: hidden;
     transform: translateY(-50%);
     border: 5px solid white;
@@ -139,6 +139,56 @@ body{
     height: 100%;
     object-fit: cover;
 }
+
+.pokemonImg{
+    width: 80%;
+    height: 80%;
+}
+
+.bgTopCard{
+    width: 100%;
+}
+
+@media screen and (min-width: 768px){
+
+    .cards__container{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .card{
+        width: 400px;
+        height: 500px;
+    }
+    .img{
+        width: 250px;
+        height: 250px;
+    }
+    .card__info{
+        top: -30%;
+    }
+    .name{
+        font-size: 2rem;
+    }
+    .hp{
+        font-size: 1.5rem;
+    }
+    .exp{
+        font-size: 1.5rem;
+        top: 350px;
+        right: 150px;
+    }
+    .line{
+        top: 370px;
+    }
+    .stats__values{
+        transform: translateY(-200%);
+    }
+    .stats{
+        top: 380px;
+    }
+}
+
 
 
 
