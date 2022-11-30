@@ -1,11 +1,12 @@
 
 const PokemonApi = async (url) => {
+    console.log("URL:", url);
     try {
         const response = await fetch(url);
         const data = await response.json();
         createCard(data);
     } catch (error) {
-        console.log(error);
+        console.log("error");
     }
     };
 
@@ -82,7 +83,8 @@ const randomPokemon = () => {
 
     const showMorePokemon = () => {
         let cards = 1;
-        for (let i = counter + 1; i <= counter + 15; i++) {
+        console.log("Counter Show:" + counter);
+        for (let i = counter + 1; i <= counter + 14; i++) {
 
             if (cards === 15) {
                 cards = 0;
@@ -92,10 +94,10 @@ const randomPokemon = () => {
             if (counter === 898) {
                 break;
             }
-
-        try {
-            const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-            PokemonApi(url);
+            
+            try {
+                const url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
+                PokemonApi(url);
             counter = i;
             cards++;
         } catch (error) {
@@ -115,6 +117,7 @@ const searchPokemon = () => {
     input.addEventListener('keyup', (e) => {
         pokemon = e.target.value.toLowerCase();
         btn.addEventListener('click', () => {
+            e.preventDefault();
 
             const container = document.getElementById('cardsContainer');
             container.innerHTML = '';
@@ -125,7 +128,6 @@ const searchPokemon = () => {
             // PokemonApi(url);
 
 
-            e.preventDefault();
 
         }
         );
@@ -137,5 +139,4 @@ const searchPokemon = () => {
 
 
     randomPokemon();
-    PokemonApi();
     searchPokemon();
