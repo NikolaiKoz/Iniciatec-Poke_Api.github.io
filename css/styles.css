@@ -245,6 +245,12 @@ body{
     }
 }
 
+@media screen and (max-width: 768px){
+    .inputSearch::-webkit-input-placeholder {
+        font-size: 1rem;
+    }
+}
+
 
 
 

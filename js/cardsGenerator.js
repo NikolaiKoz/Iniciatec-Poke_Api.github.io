@@ -103,8 +103,39 @@ const randomPokemon = () => {
         }
         }
     }
+};
+
+const searchPokemon = () => {
+
+    const input = document.getElementById('searchInput');
+    const btn = document.getElementById('searchBtn');
+
+    let pokemon;
+
+    input.addEventListener('keyup', (e) => {
+        pokemon = e.target.value.toLowerCase();
+        btn.addEventListener('click', () => {
+
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+
+            console.log(pokemon);
+
+            const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+            // PokemonApi(url);
+
+
+            e.preventDefault();
+
+        }
+        );
+    });
+
+
 
 };
 
+
     randomPokemon();
     PokemonApi();
+    searchPokemon();
