@@ -50,13 +50,46 @@ const createCard = (pokemon) => {
 
 };
 
+
 const randomPokemon = () => {
 
-    for (let i = 0; i < 30; i++) {
-        const random = Math.floor(Math.random() * 155) + 1;
-        const url = `https://pokeapi.co/api/v2/pokemon/${random}/`;
+    let counter = 0;
+
+    for (let i = 1; i <= 30; i++) {
+        const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         PokemonApi(url);
+        counter = i;
     }
+
+    window.addEventListener('scroll', () => {
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+        if (clientHeight + scrollTop >= scrollHeight - 5) {
+            showMorePokemon();
+        }
+    }
+    );
+
+    const showMorePokemon = () => {
+        let cards = 1;
+        for (let i = counter + 1; i <= counter + 30; i++) {
+
+            if (cards === 30) {
+                cards = 0;
+                break;
+            }
+
+            if (counter === 898) {
+                break;
+            }
+
+            const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+            PokemonApi(url);
+            counter = i;
+            cards++;
+        }
+    }
+
 };
 
     randomPokemon();
