@@ -1,8 +1,12 @@
 
 const PokemonApi = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    createCard(data);
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        createCard(data);
+    } catch (error) {
+        console.log(error);
+    }
     };
 
 const createCard = (pokemon) => {
@@ -55,10 +59,16 @@ const randomPokemon = () => {
 
     let counter = 0;
 
-    for (let i = 1; i <= 30; i++) {
-        const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-        PokemonApi(url);
-        counter = i;
+    for (let i = 1; i <= 15; i++) {
+
+        try {
+            const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+            PokemonApi(url);
+            counter = i;
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     window.addEventListener('scroll', () => {
@@ -72,9 +82,9 @@ const randomPokemon = () => {
 
     const showMorePokemon = () => {
         let cards = 1;
-        for (let i = counter + 1; i <= counter + 30; i++) {
+        for (let i = counter + 1; i <= counter + 15; i++) {
 
-            if (cards === 30) {
+            if (cards === 15) {
                 cards = 0;
                 break;
             }
@@ -83,10 +93,14 @@ const randomPokemon = () => {
                 break;
             }
 
+        try {
             const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
             PokemonApi(url);
             counter = i;
             cards++;
+        } catch (error) {
+            console.log(error);
+        }
         }
     }
 
