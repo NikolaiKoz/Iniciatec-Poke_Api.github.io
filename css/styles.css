@@ -118,7 +118,7 @@ body{
     display: flex;
     justify-content: space-around;
     margin: 1rem 0;
-    color: black;
+    color: gray;
     transform: translateY(-150%);
 }
 
