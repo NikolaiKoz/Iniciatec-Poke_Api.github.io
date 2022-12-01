@@ -7,13 +7,12 @@ const generateUrl = () => {
 
     const randomId = (url) => {
 
-        const id = Math.floor(Math.random() * 500) + 1;
+        const id = Math.floor(Math.random() * 300) + 1;
 
         if (idVector.includes(id) === true) {
             randomId(url);
         } else {
             idVector.push(id);
-            console.log(idVector);
             return url + id;
         }
 
@@ -87,5 +86,28 @@ const generatedFifteenCards = () => {
      }
  });
 
+ const searchPokemon = () => {
+     const btn = document.getElementById('searchBtn');
+     const input = document.getElementById('searchInput');
+
+    input.addEventListener('keyup', (e) => {
+        let value = e.target.value.toLowerCase();
+
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach((card) => {
+            const name = card.querySelector('.name').textContent.toLowerCase();
+
+
+            //SEGUIR AQUI, FALTAN COSAS
+        }
+        );
+    });
+
+
+
+ };
+
 //Llamada a la función
 generatedFifteenCards();
+searchPokemon();
