@@ -1,3 +1,26 @@
+const generateUrl = () => {
+
+    const url = 'https://pokeapi.co/api/v2/pokemon/';
+
+    const randomId = (url) => {
+
+        const idVector = [];
+        const id = Math.floor(Math.random() * 898) + 1;
+
+        if (idVector.includes(id)) {
+            randomId(url);
+        } else {
+            idVector.push(id);
+            return url + id;
+        }
+
+    };
+
+    console.log(randomId(url));
+
+    PokemonApi(randomId(url));
+};
+
 
 const PokemonApi = async (url) => {
     const response = await fetch(url);
@@ -50,26 +73,6 @@ const createCard = (pokemon) => {
 
 };
 
-const generateCards = () => {
-
-    let i = 1;
-    let numberOfCards = document.querySelectorAll('.card').length;
-
-    if (numberOfCards === 0) {
-        while (i <= 10) {
-            PokemonApi(`https://pokeapi.co/api/v2/pokemon/${i}`);
-            i++;
-        }
-    } else {
-        while ( (i + 1) <= (10 + numberOfCards) ) {
-
-            PokemonApi(`https://pokeapi.co/api/v2/pokemon/${i}`);
-            i++;
-        }
-    }
-
-};
-
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -77,3 +80,6 @@ window.addEventListener('scroll', () => {
         showMorePokemon();
     }
 });
+
+//Llamada a la función
+generateUrl();
