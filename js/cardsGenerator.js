@@ -1,13 +1,8 @@
 
 const PokemonApi = async (url) => {
-    console.log("URL:", url);
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        createCard(data);
-    } catch (error) {
-        console.log("error");
-    }
+    const response = await fetch(url);
+    const pokemon = await response.json();
+    createCard(pokemon);
     };
 
 const createCard = (pokemon) => {
@@ -55,88 +50,30 @@ const createCard = (pokemon) => {
 
 };
 
+const generateCards = () => {
 
-const randomPokemon = () => {
+    let i = 1;
+    let numberOfCards = document.querySelectorAll('.card').length;
 
-    let counter = 0;
-
-    for (let i = 1; i <= 15; i++) {
-
-        try {
-            const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-            PokemonApi(url);
-            counter = i;
-        } catch (error) {
-            console.log(error);
+    if (numberOfCards === 0) {
+        while (i <= 10) {
+            PokemonApi(`https://pokeapi.co/api/v2/pokemon/${i}`);
+            i++;
         }
+    } else {
+        while ( (i + 1) <= (10 + numberOfCards) ) {
 
-    }
-
-    window.addEventListener('scroll', () => {
-        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-        if (clientHeight + scrollTop >= scrollHeight - 5) {
-            showMorePokemon();
+            PokemonApi(`https://pokeapi.co/api/v2/pokemon/${i}`);
+            i++;
         }
     }
-    );
-
-    const showMorePokemon = () => {
-        let cards = 1;
-        console.log("Counter Show:" + counter);
-        for (let i = counter + 1; i <= counter + 14; i++) {
-
-            if (cards === 15) {
-                cards = 0;
-                break;
-            }
-
-            if (counter === 898) {
-                break;
-            }
-            
-            try {
-                const url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
-                PokemonApi(url);
-            counter = i;
-            cards++;
-        } catch (error) {
-            console.log(error);
-        }
-        }
-    }
-};
-
-const searchPokemon = () => {
-
-    const input = document.getElementById('searchInput');
-    const btn = document.getElementById('searchBtn');
-
-    let pokemon;
-
-    input.addEventListener('keyup', (e) => {
-        pokemon = e.target.value.toLowerCase();
-        btn.addEventListener('click', () => {
-            e.preventDefault();
-
-            const container = document.getElementById('cardsContainer');
-            container.innerHTML = '';
-
-            console.log(pokemon);
-
-            const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-            // PokemonApi(url);
-
-
-
-        }
-        );
-    });
-
-
 
 };
 
+window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    randomPokemon();
-    searchPokemon();
+    if (clientHeight + scrollTop >= scrollHeight - 5) {
+        showMorePokemon();
+    }
+});
