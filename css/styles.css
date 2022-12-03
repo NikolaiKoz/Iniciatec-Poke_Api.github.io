@@ -252,6 +252,18 @@ body{
     }
 }
 
+.errorImg{
+    /* La imagen de fondo debe ser Scouter-Saiyajin.jpg*/
+    background-image: url(../images/Scouter-Saiyajin.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#error{
+    background-color: red;
+}
+
 
 
 

@@ -6,7 +6,7 @@ const generateUrl = () => {
 
     const randomId = (url) => {
 
-        const id = Math.floor(Math.random() * 300) + 1;
+        const id = Math.floor(Math.random() * 150) + 1;
 
         if (idVector.includes(id) === true) {
             randomId(url);
@@ -22,10 +22,16 @@ const generateUrl = () => {
 
 
 const PokemonApi = async (url) => {
-    const response = await fetch(url);
-    const pokemon = await response.json();
-    createCard(pokemon);
-    };
+
+    try {
+        const response = await fetch(url);
+        const pokemon = await response.json();
+        createCard(pokemon);
+    } catch (error) {
+        document.getElementById('error').classList.remove('d-none');
+        errorCard();
+    }
+};
 
 const createCard = (pokemon) => {
 
@@ -98,7 +104,6 @@ const generatedFifteenCards = () => {
             const name = card.querySelector('.name').textContent.toLowerCase();
 
             if (!name.includes(value)) {
-                console.log('existe');
                 card.classList.add('d-none');
             } else {
                 card.classList.remove('d-none');
@@ -115,6 +120,21 @@ const generatedFifteenCards = () => {
     );
 
  };
+
+ const errorCard = () => {
+        const error = document.getElementById('error');
+
+        //Si error es visible, se oculta cuando el input cambia
+        document.getElementById('searchInput').addEventListener('change', () => {
+            if (error.classList.contains('d-none') === false ) {
+                error.classList.add('d-none');
+            }
+
+        });
+
+    };
+
+
 
 //Llamada a la función
 generatedFifteenCards();
