@@ -4,7 +4,6 @@ const generateUrl = () => {
 
     const url = 'https://pokeapi.co/api/v2/pokemon/';
 
-
     const randomId = (url) => {
 
         const id = Math.floor(Math.random() * 300) + 1;
@@ -98,13 +97,22 @@ const generatedFifteenCards = () => {
         cards.forEach((card) => {
             const name = card.querySelector('.name').textContent.toLowerCase();
 
-
-            //SEGUIR AQUI, FALTAN COSAS
+            if (!name.includes(value)) {
+                console.log('existe');
+                card.classList.add('d-none');
+            } else {
+                card.classList.remove('d-none');
+            }
         }
         );
     });
 
-
+    btn.addEventListener('click', () => {
+        if (input.value !== '') {
+            PokemonApi(`https://pokeapi.co/api/v2/pokemon/${input.value.toLowerCase()}`);
+        }
+    }
+    );
 
  };
 
