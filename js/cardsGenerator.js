@@ -28,8 +28,7 @@ const PokemonApi = async (url) => {
         const pokemon = await response.json();
         createCard(pokemon);
     } catch (error) {
-    errorCard();
-
+        console.log(error);
     }
 };
 
@@ -98,22 +97,34 @@ const generatedFifteenCards = () => {
     input.addEventListener('keyup', (e) => {
         let value = e.target.value.toLowerCase();
 
-        const cards = document.querySelectorAll('.card');
+        const cards = document.querySelectorAll('.counter');
+        const cardsHidden = document.querySelectorAll('.d-none');
 
         cards.forEach((card) => {
             const name = card.querySelector('.name').textContent.toLowerCase();
 
             if (!name.includes(value)) {
-                card.classList.add('d-none');
+                //remove
+                card.remove();
             } else {
                 card.classList.remove('d-none');
             }
         }
         );
+
+        //Si value no esta vacio y no hay coincidencias
+        const error = document.getElementById('error');
+        if (value !== '' || cards.length === 0) {
+            console.log('no hay coincidencias');
+            error.classList.remove('d-none');
+        } else {
+            error.classList.add('d-none');
+        }
     });
 
     btn.addEventListener('click', () => {
         if (input.value !== '') {
+            error.classList.add('d-none');
             PokemonApi(`https://pokeapi.co/api/v2/pokemon/${input.value.toLowerCase()}`);
         }
     }
@@ -121,29 +132,8 @@ const generatedFifteenCards = () => {
 
  };
 
- const errorCard = () => {
-        const container = document.getElementById('cardsContainer');
-        const error = document.getElementById('error');
-        const cardsHidden = document.querySelectorAll('.counter');
-
-        //A conteiner agregar un lisener de typo change
-        //Cuando la cantidad de cards con la clase counter sea igual al numero del array idVector
-        //Se remueve la clase d-none a la seccion de error
-
-        container.addEventListener('change', () => {
-            if (cardsHidden.length === idVector.length) {
-                error.classList.remove('d-none');
-            } else {
-                error.classList.add('d-none');
-            }
-        }
-        );
-
-    };
-
 
 
 //Llamada a la función
 generatedFifteenCards();
 searchPokemon();
-errorCard();
