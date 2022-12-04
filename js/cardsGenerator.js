@@ -28,8 +28,8 @@ const PokemonApi = async (url) => {
         const pokemon = await response.json();
         createCard(pokemon);
     } catch (error) {
-        document.getElementById('error').classList.remove('d-none');
-        errorCard();
+    errorCard();
+
     }
 };
 
@@ -37,7 +37,7 @@ const createCard = (pokemon) => {
 
     const container = document.getElementById('cardsContainer');
 
-    container.innerHTML += `<article class="card">
+    container.innerHTML += `<article class="card counter">
                                 <!-- BANNER -->
                                 <figure>
                                     <img class="bgTopCard" src="./images/bg-pattern-card.svg" alt="Top background card">
@@ -122,15 +122,22 @@ const generatedFifteenCards = () => {
  };
 
  const errorCard = () => {
+        const container = document.getElementById('cardsContainer');
         const error = document.getElementById('error');
+        const cardsHidden = document.querySelectorAll('.counter');
 
-        //Si error es visible, se oculta cuando el input cambia
-        document.getElementById('searchInput').addEventListener('change', () => {
-            if (error.classList.contains('d-none') === false ) {
+        //A conteiner agregar un lisener de typo change
+        //Cuando la cantidad de cards con la clase counter sea igual al numero del array idVector
+        //Se remueve la clase d-none a la seccion de error
+
+        container.addEventListener('change', () => {
+            if (cardsHidden.length === idVector.length) {
+                error.classList.remove('d-none');
+            } else {
                 error.classList.add('d-none');
             }
-
-        });
+        }
+        );
 
     };
 
@@ -139,3 +146,4 @@ const generatedFifteenCards = () => {
 //Llamada a la función
 generatedFifteenCards();
 searchPokemon();
+errorCard();
