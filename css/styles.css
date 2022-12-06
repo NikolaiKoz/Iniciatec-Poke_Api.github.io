@@ -163,7 +163,7 @@ body{
         justify-content: space-around;
         flex-wrap: wrap;
     }
-    .card{
+    .card,.error__card{
         width: 400px;
         height: 500px;
     }
@@ -262,6 +262,17 @@ body{
 
 #error{
     background-color: red;
+}
+
+.error__card{
+    margin: 0 auto;
+    width: 300px;
+    height: 430px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    position: relative;
 }
 
 

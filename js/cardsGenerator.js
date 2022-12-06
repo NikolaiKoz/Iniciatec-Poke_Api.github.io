@@ -28,7 +28,6 @@ const PokemonApi = async (url) => {
         const pokemon = await response.json();
         createCard(pokemon);
     } catch (error) {
-        console.log(error);
     }
 };
 
@@ -36,7 +35,7 @@ const createCard = (pokemon) => {
 
     const container = document.getElementById('cardsContainer');
 
-    container.innerHTML += `<article class="card counter">
+    container.innerHTML += `<article class="card">
                                 <!-- BANNER -->
                                 <figure>
                                     <img class="bgTopCard" src="./images/bg-pattern-card.svg" alt="Top background card">
@@ -91,34 +90,72 @@ const generatedFifteenCards = () => {
  });
 
  const searchPokemon = () => {
-     const btn = document.getElementById('searchBtn');
-     const input = document.getElementById('searchInput');
+    const Container = document.getElementById('cardsContainer');
+    const btn = document.getElementById('searchBtn');
+    const input = document.getElementById('searchInput');
+
+    const errorCard = `<article class="error__card" id="error">
+     <!-- BANNER -->
+     <figure>
+         <img class="bgTopCard" src="./images/bg-pattern-card.svg" alt="Top background card">
+     </figure>
+
+     <!-- CONTAINER AND IMG -->
+     <figure class="img">
+         <img alt="error" class="imgPokemon errorImg">
+     </figure>
+
+     <!-- NAME AND HP -->
+     <div class="card__info">
+         <p class="name">Pokemon Not Found</p>
+         <p class="hp"></p>
+     </div>
+
+     <p  id="errorMsj" class="exp"></p>
+
+     <hr class="line">
+
+     <!-- STATS -->
+     <div class="stats__values">
+         <p class="stat__value">Over 9000</p>
+         <p class="stat__value">Over 9000</p>
+         <p class="stat__value">Over 9000</p>
+     </div>
+
+     <div class="stats">
+         <p class="stat">Attack</p>
+         <p class="stat">Defense</p>
+         <p class="stat">Speed</p>
+     </div>
+
+     </article>
+`;
 
     input.addEventListener('keyup', (e) => {
         let value = e.target.value.toLowerCase();
 
-        const cards = document.querySelectorAll('.counter');
-        const cardsHidden = document.querySelectorAll('.d-none');
+        const cards = document.querySelectorAll('.card');
 
         cards.forEach((card) => {
-            const name = card.querySelector('.name').textContent.toLowerCase();
+            let name = card.querySelector('.name').textContent.toLowerCase();
 
             if (!name.includes(value)) {
                 //remove
                 card.remove();
-            } else {
-                card.classList.remove('d-none');
             }
         }
         );
 
         //Si value no esta vacio y no hay coincidencias
-        const error = document.getElementById('error');
-        if (value !== '' || cards.length === 0) {
-            console.log('no hay coincidencias');
-            error.classList.remove('d-none');
-        } else {
-            error.classList.add('d-none');
+
+        if (value !== '' && cards.length === 0) {
+            cardsContainer.innerHTML = errorCard;
+        } else{
+            document.getElementById("error").remove();
+        }
+
+        if(value.length === 0){
+            generatedFifteenCards();
         }
     });
 
